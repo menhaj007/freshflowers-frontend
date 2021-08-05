@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.ReactCrop__image {
+  display: block;
+  max-width: 100%;
+  max-height: fill-available;
+}
