@@ -1,47 +1,62 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {Navbar, Nav, Form, FormControl, NavDropdown, Button} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 
-export default function NavBar() {
+
+
+
+export default function NavBar({user, setUser}) {
+    
+    let history = useHistory()
+
+    function handleLogoutClick() {
+      console.log(user);
+        async function logout(){
+          const res = await fetch("/logout", { method: "DELETE" })
+            if (res.ok) {
+              setUser(null);
+              localStorage.clear()
+            };
+          };
+        logout()
+      }
+
     return (
-    <Navbar bg="light" expand="lg" >
-    <Navbar.Brand href="/">Fresh Flowers</Navbar.Brand>
-    <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-        {/* <Navbar.Collapse className="justify-content-end"> */}
-            <Nav className="mr-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll >
-            <Nav.Link href="/" >Home</Nav.Link>
-            <Nav.Link href="#action2">Summer Flowers</Nav.Link>
-            
-            <NavDropdown title="More" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">Wedding</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">Occasions</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">Something else here</NavDropdown.Item>
-            </NavDropdown>
-            
-            <Nav.Link href="#" disabled>
-                Order now
-            </Nav.Link>
-            </Nav>
-            
-            <Form className="d-flex">
-            <FormControl
-                type="search"
-                placeholder="Search flowers"
-                className="mr-2 mx-2"
-                aria-label="Search"
-            />
-                <Button variant="outline-success">Search</Button>
-            </Form>
-
-            
-            <Link to={`/signup`} type="button" className="btn btn-outline-secondary mx-3">Sign up</Link>
-            {localStorage.getItem('user_json')? <Link to={`/addStore`} type="button" className="btn btn-outline-primary mx-3">Add a store</Link>: <Link to={`/login`} type="button" className="btn btn-outline-primary mx-3">Sign in</Link>}
-            
-            <Link to={`/`} type="button" className="btn btn-outline-primary mx-3" onClick={() => localStorage.clear()}>Logout</Link>
-        
-        </Navbar.Collapse>
+    <Navbar bg="dark" expand="lg" className="navbar navbar-expand-lg bg-dark navbar-dark p-3" >
+        {/* <div className="container"> */}
+            <div className="d-sm-flex">
+            <Navbar.Brand href="/" className=""><span className="text-warning">Fresh Flowers</span></Navbar.Brand>
+            <Navbar.Toggle aria-controls="navbarScroll" />
+                <Navbar.Collapse id="navbarScroll">
+                    <Nav className="mr-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll >
+                    <Nav.Link href="/" >Home</Nav.Link>
+                    <Nav.Link href="#">Summer Flowers</Nav.Link>
+                    
+                    <Form className="d-flex">
+                    <FormControl
+                        type="search"
+                        placeholder="Search flowers"
+                        className="mr-2 mx-2"
+                        aria-label="Search"
+                    />
+                        <Button variant="outline-success">Search</Button>
+                    </Form>
+                   
+                    <NavDropdown title="More" id="navbarScrollingDropdown">
+                    <NavDropdown.Item href="/login">Login</NavDropdown.Item>
+                    
+                    <NavDropdown.Item href="/" onClick={handleLogoutClick}>Logout</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/addStore">Add Store</NavDropdown.Item>
+                    <NavDropdown.Item href="/signup">Signup</NavDropdown.Item> 
+                        
+                    </NavDropdown>
+                   
+                   
+                    </Nav>
+                </Navbar.Collapse>
+            </div>
+        {/* </div> */}
     </Navbar>
     )
 }

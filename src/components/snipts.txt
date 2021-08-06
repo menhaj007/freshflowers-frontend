@@ -83,3 +83,69 @@
     </Col>
 </Row>
 </Form> */}
+
+
+
+{/* <div className="App"> */}
+        {/* <Router>
+        <Navbar />
+        <Switch>
+        
+          <Route exact path="/login" component={Auth} />
+          <Route exact path="/signup" component={RegisterUserForm} />
+          <Route exact path="/addStore" component={AddStore} /> */}
+          {/* <Route exact path="/addStore" component={null} /> */}
+
+
+          {/* <Route exact path="/summerflowers"> <MainContainer/> </Route>
+          <Route exact path="/wedding"> <MainContainer/> </Route>
+          <Route exact path="/occasions"> <MainContainer/> </Route>
+          <Route exact path="/" component={MainContainer}/> */}
+          {/* <Route exact path="/flower"> <Flower/> </Route> */}
+
+          {/* <Route exact path="/flower/:id" render={(props) =>  {
+            let flowerId = props.match.params.id
+            const currentFlower = flowers.find(x => x.id == parseInt(flowerId))
+            console.log("this is the current flower we're sending: " , currentFlower)
+            return <Flower currentFlower={currentFlower}/>
+              }
+            }
+          /> */}
+          {/* <Route path='/flowers/:id' component={Flower} />
+          <Route path='/user/:id' component={Dashboard} />
+          <Route path='/order/:id' component={OrderFlower} />
+
+        </Switch>
+        
+      </Router> */}
+    {/* </div> */}
+
+
+        // let user_id;
+    // if (JSON.parse(localStorage.getItem('user_json'))!== null) {
+    //     user_id = JSON.parse(localStorage.getItem('user_json')).user.id       
+    // } 
+
+    // async function signOut() {
+    //     // fetch("http://127.0.0.1:3000/logout", {method: 'DELETE'}).then(r => r.json()).then(data => {
+    //     //     console.log(data, "from signout")
+    //     //     localStorage.clear()
+    //     // })
+
+    //     // debugger
+    //     const res = await fetch("http://127.0.0.1:3000/logout", { method: "DELETE" })
+    //       debugger
+    //       if (res.ok){
+    //           localStorage.clear()
+    //         //   history.push("/")
+    //       }
+    // }
+
+
+     <h1>Welcome to your page.</h1>
+            <h2>{userData.user.email}</h2>
+            {/* {<img src={userData.user.store.image_url} /> */}
+            <p>{userData.user.store.zipcode}</p>
+            <p>{userData.user.store.user_id}</p>
+            <p>{userData.user.store.address}</p>
+            <p>{userData.user.store.total}</p>

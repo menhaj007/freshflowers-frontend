@@ -1,24 +1,50 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React, {useState, useEffect} from 'react'
+import { useParams, useHistory } from 'react-router-dom'
 
-export default function Dashboard() {
-    // const {id} = useParams()
-    let userData = JSON.parse(localStorage.getItem('user_json'))
-    // let userDataFromStorage = JSON.parse(localStorage.getItem('user_json'))
-    // console.log(userData.user.store);
-    // {debugger}
+export default function Dashboard(handleChangeUserId, handleChangeUser, userId) {
+    // let {id} = useParams()
+    // console.log(id)
+
+    const [orders, setOrders] = useState([])
+    const [stores, setStores] = useState([])
+    // const [stores, setStores] = useState([])
+
+    let user_id;
+    if (JSON.parse(localStorage.getItem('user_json')).id) {
+        user_id = JSON.parse(localStorage.getItem('user_json')).id
+        // debugger 
+        console.log(user_id)
+    } else {
+        console.log(JSON.parse(localStorage.getItem('user_json')))
+        user_id = JSON.parse(localStorage.getItem('user_json')).user.id
+        // debugger
+    }
+
+
+
+    useEffect(() => {
+        async function fetchOrders() {
+            const res = await fetch(`http://127.0.0.1:3000/users/${+user_id}/store`)
+            // http://127.0.0.1:3000/users/25/store
+         
+            if (res.ok) {
+                const storeData = await res.json()
+                setStores(storeData.flowers)
+                console.log("data in orders", storeData);
+                // debugger
+            }
+        }
+        fetchOrders()
+    }, [user_id])
+    console.log(orders)
+    
     
     return (
         <div>
-            <h1>Welcome to your page.</h1>
-            <h2>{userData.user.email}</h2>
-            {/* {<img src={userData.user.store.image_url} /> */}
-            <p>{userData.user.store.zipcode}</p>
-            <p>{userData.user.store.user_id}</p>
-            <p>{userData.user.store.address}</p>
-            <p>{userData.user.store.total}</p>
-            
-       
+           {
+               stores.map(flower => <li key={flower.id}>{flower.name}</li>)
+            //    stores.map(flower => <li key={flower.id}>{flower.name}</li>)
+           }
             
         </div>
     )

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { useHistory } from "react-router-dom";
 import {Navbar, Container, Form, FormControl, Button, Row, Col, InputGroup} from 'react-bootstrap'
 
-export default function Auth() {
+export default function Auth({handleChangeUserId, handleChangeUser, readFromStorage}) {
     
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -33,19 +33,22 @@ export default function Auth() {
             // console.log(userDataFromStorage)
             const user_id = user_json_res.user.id
             console.log(user_id);
+            readFromStorage()
+            // handleChangeUserId(user_id)
+            // handleChangeUser(user_json_res)
             history.push(`/user/${user_id}`)
         } else {
             const err = await res.json()
             setErrors(err.errors)
-        }
+         }
         };
         login()
     };
 
 
     return (
-        <div>
-           
+        <div className="container">
+           <h1>Login</h1>
             <Form className="mt-4 mx-2" onSubmit={handleSubmit}>
                 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
